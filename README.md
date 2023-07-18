@@ -1,5 +1,42 @@
-# MyHome Project(Main)
+# MyHome Project
 
+📱 IoT + 안드로이드
+
+📅 2021.01 ~ 2021.07
+
+🤵🏻 개인 프로젝트
+
+## 담당 직무
+
+---
+
+Android, Backend, Server
+
+## 참여 인원
+
+---
+
+Android,Backend,Server 1명 
+
+ESP8266 핀 포트 확인 1명
+
+## 담당 업무
+
+---
+
+- Android
+    - 전등 ON/OFF 컨트롤
+    - 전등 컨트롤 예약
+    - 파일 서버에 파일 업&다운로드
+- Switch(ESP8266)
+    - 기존 서버에서 개인 서버로 통신 서버 변경
+    - MQTT 통신 추가
+    - 펌웨어 온라인 업데이트 기능 추가
+- Server(PHP)
+    - REST ful Server 대체용
+- Server(Python)
+    - MQTT, Scheduler 용 서버
+      
 ## 개요
 
 ---
