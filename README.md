@@ -141,6 +141,30 @@ ESP8266 핀 포트 확인 1명
 - Android (Regacy Code : No updates due to security related to server IP)
     - link : [https://github.com/sonjuhy/MyHome_Open](https://github.com/sonjuhy/MyHome_Open)
 
+## 구조도
+
+---
+
+- 메인 구조
+    
+    ![Untitled 2](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/5fa241b3-8ab2-49a4-8df1-f97d34b14100)
+    
+
+- 서버 (Python)
+    
+    ![Untitled 3](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/6e257bb3-977e-4210-b8c7-001fc40b465b)
+    
+
+- 안드로이드
+    
+    ![Untitled 4](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/0d599b61-d333-460d-a2c0-417eb74a1a1a)
+    
+
+- 스위치
+    
+    ![Untitled 5](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/6f268677-492e-4fa1-adc6-029b43bb53ca)
+
+
 ## 서비스 화면
 
 ---
@@ -177,26 +201,3 @@ ESP8266 핀 포트 확인 1명
     
     ![Untitled 1](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/039d06b8-5eaf-4f6d-a4ae-2ee4bf6ddb70)
     
-
-## 구조도
-
----
-
-- 메인 구조
-    
-    ![Untitled 2](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/5fa241b3-8ab2-49a4-8df1-f97d34b14100)
-    
-
-- 서버 (Python)
-    
-    ![Untitled 3](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/6e257bb3-977e-4210-b8c7-001fc40b465b)
-    
-
-- 안드로이드
-    
-    ![Untitled 4](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/0d599b61-d333-460d-a2c0-417eb74a1a1a)
-    
-
-- 스위치
-    
-    ![Untitled 5](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/6f268677-492e-4fa1-adc6-029b43bb53ca)
