@@ -8,21 +8,15 @@
 
 ## 담당 직무
 
----
-
 Android, Backend, Server
 
 ## 참여 인원
-
----
 
 Android,Backend,Server 1명 
 
 ESP8266 핀 포트 확인 1명
 
 ## 담당 업무
-
----
 
 - Android
     - 전등 ON/OFF 컨트롤
@@ -39,13 +33,9 @@ ESP8266 핀 포트 확인 1명
       
 ## 개요
 
----
-
 20년도 더 된 집에서 원격으로 전등을 ON/OFF 컨트롤 하고 예약까지 추가하는 프로젝트 그리고 추후 지원하는 기기를 늘려 최대한 많은 부분을 원격으로 상태 확인, 컨트롤 하길 원해 시작한 프로젝트
 
 ## 구상
-
----
 
 - 원격 클라이언트 : 안드로이드
     - 가족 구성원 모두 갤럭시 스마트폰을 사용하므로 한번 개발하면 모두 사용 가능한
@@ -61,8 +51,6 @@ ESP8266 핀 포트 확인 1명
     - 도시가스 밸브, 방범문 도어락 과 같이 안전과 직결된 부분보다 안전 문제에 대해 비교적 안전하고 가장 사용성이 높은 전등 스위치부터 도전
 
 ## 기능 요구사항
-
----
 
 | 기능명 | 카테고리 | 작동 결과 | 설명 |
 | --- | --- | --- | --- |
@@ -96,15 +84,11 @@ ESP8266 핀 포트 확인 1명
 
 ## 개발 환경
 
----
-
 - Android Studio
 - PyCharm
 - Arduino IDE
 
 ## 사용 라이브러리
-
----
 
 - Switch(ESP8266)
     - Http
@@ -123,27 +107,12 @@ ESP8266 핀 포트 확인 1명
 
 ## 사용 기술스택
 
----
-
 - JAVA
 - Python
 - PHP
 - C++
 
-## 링크
-
----
-
-- Server(Python)
-    - link : [https://github.com/sonjuhy/Myhome_Server](https://github.com/sonjuhy/Myhome_Server)
-- ESP 8266
-    - link : [https://github.com/sonjuhy/MyHomESP8266](https://github.com/sonjuhy/MyHomESP8266)
-- Android (Regacy Code : No updates due to security related to server IP)
-    - link : [https://github.com/sonjuhy/MyHome_Open](https://github.com/sonjuhy/MyHome_Open)
-
 ## 구조도
-
----
 
 - 메인 구조
     
@@ -164,10 +133,17 @@ ESP8266 핀 포트 확인 1명
     
     ![Untitled 5](https://github.com/sonjuhy/MyHomeVer1/assets/2987059/6f268677-492e-4fa1-adc6-029b43bb53ca)
 
+## 링크
+
+- Server(Python)
+    - link : [https://github.com/sonjuhy/Myhome_Server](https://github.com/sonjuhy/Myhome_Server)
+- ESP 8266
+    - link : [https://github.com/sonjuhy/MyHomESP8266](https://github.com/sonjuhy/MyHomESP8266)
+- Android (Regacy Code : No updates due to security related to server IP)
+    - link : [https://github.com/sonjuhy/MyHome_Open](https://github.com/sonjuhy/MyHome_Open)
+
 
 ## 서비스 화면
-
----
 
 - 메인 화면
     
@@ -189,8 +165,6 @@ ESP8266 핀 포트 확인 1명
     
 
 ## 서비스 로그
-
----
 
 - DB(MariaDB) 스위치 컨트롤 로그
     
