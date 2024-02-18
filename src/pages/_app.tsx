@@ -13,7 +13,7 @@ import Header from '../../components/head';
 export default function App({ Component, pageProps }: AppProps) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-  return <div>
+  return <div style={{height:'100%'}}>
     <AppRouterCacheProvider>
       <ThemeProvider theme={theme(prefersDarkMode)}>
         <CssBaseline />
