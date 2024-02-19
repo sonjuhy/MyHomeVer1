@@ -48,27 +48,35 @@ export default function Home({ activeIndex }: IntroSliderProps) {
         height: "100vh",
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         backgroundColor: "#f4f5ff",
       }}
     >
-      <Stack spacing={2} style={{ marginTop: "5rem" }}>
-        <Typography
-          variant="h3"
-          style={{ marginRight: "2rem", textAlign: "left" }}
+      <Stack spacing={2}>
+        <div
+          style={{ display: "flex", alignItems: "center", textAlign: "left" }}
         >
           <Typography
-            variant="h1"
+            variant="h2"
             style={{
               display: "inline-block",
               color: "#3eccc4",
-              lineHeight: "1.2",
-              verticalAlign: "sub",
+              flexShrink: 0, // 텍스트가 줄어들지 않도록 설정
             }}
           >
             프
           </Typography>
-          로젝트 목적
-        </Typography>
+          <Typography
+            variant="h3"
+            style={{
+              marginRight: "2rem",
+              textAlign: "left",
+              whiteSpace: "nowrap",
+            }}
+          >
+            로젝트 목적
+          </Typography>
+        </div>
         <div
           id="centerBox"
           style={{

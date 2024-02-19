@@ -86,11 +86,6 @@ export default function Home() {
       }}
     >
       <DisableVerticalScroll />
-      {/** 개요 */}
-      {/** 목적 */}
-      {/** 소개(팀원, 기간, 핵심기능, 파트별 기여도) */}
-      {/** 소개(기술 스택, 개발 환경, 구조도) */}
-      {/** 이미지 */}
       <Swiper
         className="mySwiper"
         ref={swiperRef}
@@ -108,9 +103,11 @@ export default function Home() {
         onTransitionEnd={handleTransitionEnd}
         style={{ width: "100%", height: "100%" }}
       >
+        {/** 개요 */}
         <CustomSwiperSlide>
           <OutlineSlider activeIndex={sendIndex} />
         </CustomSwiperSlide>
+        {/** 목적 */}
         <CustomSwiperSlide>
           <IntroSlider activeIndex={sendIndex} />
         </CustomSwiperSlide>
@@ -123,8 +120,11 @@ export default function Home() {
         <CustomSwiperSlide>
           <AddonsSlider activeIndex={sendIndex} />
         </CustomSwiperSlide>
+        {/** 소개(팀원, 기간, 핵심기능, 파트별 기여도) */}
         <CustomSwiperSlide>Slide 4</CustomSwiperSlide>
+        {/** 소개(기술 스택, 개발 환경, 구조도) */}
         <CustomSwiperSlide>Slide 5</CustomSwiperSlide>
+        {/** 이미지 */}
         <CustomSwiperSlide>Slide 6</CustomSwiperSlide>
       </Swiper>
     </div>
