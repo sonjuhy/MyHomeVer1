@@ -16,7 +16,8 @@
   }
 }
 
-body, html {
+body,
+html {
   /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -24,7 +25,12 @@ body, html {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
-    height: 100vh;
+  height: 100vh;
+}
+
+.customSwiper {
+  --swiper-navigation-color: #fff;
+  --swiper-pagination-color: #fff;
 }
 
 @layer utilities {

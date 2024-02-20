@@ -12,7 +12,8 @@ import IntroSlider from "../../components/slider/intro";
 import IotSlider from "../../components/slider/iot";
 import CloudSlider from "../../components/slider/cloud";
 import AddonsSlider from "../../components/slider/addons";
-
+import IntroDocsSlider from "../../components/slider/introDocs";
+import ScreenShotSlider from "../../components/slider/screenshot";
 import styled from "styled-components";
 
 const CustomSwiperSlide = styled(SwiperSlide)`
@@ -107,7 +108,7 @@ export default function Home() {
         <CustomSwiperSlide>
           <OutlineSlider activeIndex={sendIndex} />
         </CustomSwiperSlide>
-        {/** 목적 */}
+        {/** 핵심기능 */}
         <CustomSwiperSlide>
           <IntroSlider activeIndex={sendIndex} />
         </CustomSwiperSlide>
@@ -120,12 +121,14 @@ export default function Home() {
         <CustomSwiperSlide>
           <AddonsSlider activeIndex={sendIndex} />
         </CustomSwiperSlide>
-        {/** 소개(팀원, 기간, 핵심기능, 파트별 기여도) */}
-        <CustomSwiperSlide>Slide 4</CustomSwiperSlide>
-        {/** 소개(기술 스택, 개발 환경, 구조도) */}
-        <CustomSwiperSlide>Slide 5</CustomSwiperSlide>
+        {/** 소개(팀원, 기간, 기술 스택, 개발 환경, 구조도) */}
+        <CustomSwiperSlide>
+          <IntroDocsSlider activeIndex={sendIndex} />
+        </CustomSwiperSlide>
         {/** 이미지 */}
-        <CustomSwiperSlide>Slide 6</CustomSwiperSlide>
+        <CustomSwiperSlide>
+          <ScreenShotSlider activeIndex={sendIndex} />
+        </CustomSwiperSlide>
       </Swiper>
     </div>
   );

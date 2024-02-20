@@ -19,6 +19,7 @@
     "@mui/material": "^5.15.10",
     "@mui/material-nextjs": "^5.15.9",
     "@mui/styled-engine-sc": "^6.0.0-alpha.16",
+    "@types/swiper": "^6.0.0",
     "framer-motion": "^11.0.5",
     "next": "14.1.0",
     "react": "^18",

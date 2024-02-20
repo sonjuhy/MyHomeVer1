@@ -1,0 +1,324 @@
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { SwiperRef, useSwiper } from "swiper/react";
+
+import { Grid, Typography, useMediaQuery } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+// import required modules
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Parallax, Scrollbar, Pagination } from "swiper/modules";
+import SwiperCore from "swiper";
+
+interface IntroDocsSliderProps {
+  activeIndex: number;
+}
+
+let pageNumber: number = 5;
+
+const ParallaxBg = styled("div")`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 130%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+`;
+
+const CustomSwiper = styled(Swiper)`
+  width: 100%;
+  height: 100%;
+`;
+
+const CustomSwiperSlide = styled(SwiperSlide)`
+  font-size: 18px;
+  color: #000;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+`;
+
+const Title = styled("div")`
+  font-size: 41px;
+  font-weight: 300;
+  margin-bottom: 1rem;
+`;
+
+const Subtitle = styled("div")`
+  font-size: 21px;
+  text-align: center;
+`;
+
+const Text = styled("div")`
+  font-size: 17px;
+  line-height: 1.3;
+  margin-top: 0.1rem;
+`;
+
+// 소개(팀원, 기간, 핵심기능, 파트별 기여도)
+export default function Home({ activeIndex }: IntroDocsSliderProps) {
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [startAnimation, setStartAnimation] = useState(false);
+
+  SwiperCore.use([Navigation]);
+
+  useEffect(() => {
+    if (pageNumber === activeIndex) {
+      setStartAnimation(true);
+    } else {
+      setStartAnimation(false);
+    }
+  }, [activeIndex]);
+
+  return (
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+      }}
+    >
+      <Swiper
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+        speed={600}
+        parallax={true}
+        navigation={true}
+        modules={[Parallax, Navigation]}
+        className="customSwiper"
+      >
+        <ParallaxBg
+          slot="container-start"
+          className="parallax-bg"
+          style={{
+            backgroundImage: prefersDarkMode
+              ? "url(/image/image/IntroDocsBackgroundDark.png)"
+              : "url(/image/image/IntroDocsBackground.png)",
+          }}
+          data-swiper-parallax="-23%"
+        ></ParallaxBg>
+        <CustomSwiperSlide>
+          <div style={{ width: "70%", height: "50%", textAlign: "left" }}>
+            <Title className="title" data-swiper-parallax="-300">
+              프로젝트 소개 [1/4]
+            </Title>
+            <Grid container spacing={4}>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  서론
+                </Subtitle>
+                <Text className="text" data-swiper-parallax="-100">
+                  <Typography style={{ fontWeight: "bolder" }}>목적</Typography>
+                  <Typography>▪ IoT & 클라우드</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    팀 or 개인
+                  </Typography>
+                  <Typography> ▪ 개인 프로젝트</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>기간</Typography>
+                  <Typography>▪ 2021.01 ~ 2021.07</Typography>
+                </Text>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  담당 업무
+                </Subtitle>
+                <Text className="text" data-swiper-parallax="-100">
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    안드로이드
+                  </Typography>
+                  <Typography>
+                    ▪ IoT 제어, Cloud 서비스 제공, 날씨 api로부터 데이터 파싱 후
+                    제공
+                  </Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    스위치
+                  </Typography>
+                  <Typography> ▪ MQTT를 통한 제어, 현재 상태 제공</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    백엔드
+                  </Typography>
+                  <Typography>
+                    ▪ 유저, 공지 사항 관련 DB의 API(PHP), MQTT 관련 신호 및
+                    데이터, 예약 처리(Python)
+                  </Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>서버</Typography>
+                  <Typography>
+                    ▪ Ubuntu 18.04 기반 서버 구축, 도메인 설정(NGINX, Iptime)
+                  </Typography>
+                </Text>
+              </Grid>
+            </Grid>
+          </div>
+        </CustomSwiperSlide>
+        <CustomSwiperSlide>
+          <div
+            style={{
+              width: "70%",
+              height: "50%",
+              textAlign: "left",
+            }}
+          >
+            <Title className="title" data-swiper-parallax="-300">
+              프로젝트 소개 [2/4]
+            </Title>
+            <Grid container spacing={4}>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  기술 스택
+                </Subtitle>
+                <Text className="text" data-swiper-parallax="-100">
+                  <Typography style={{ fontWeight: "bolder" }}>목적</Typography>
+                  <Typography>▪ IoT & 클라우드</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    팀 or 개인
+                  </Typography>
+                  <Typography> ▪ 개인 프로젝트</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>기간</Typography>
+                  <Typography>▪ 2021.01 ~ 2021.07</Typography>
+                </Text>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  개발 & 배포 환경
+                </Subtitle>
+                <Text className="text" data-swiper-parallax="-100">
+                  <Typography style={{ fontWeight: "bolder" }}>목적</Typography>
+                  <Typography>▪ IoT & 클라우드</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    팀 or 개인
+                  </Typography>
+                  <Typography> ▪ 개인 프로젝트</Typography>
+                  <br />
+                  <Typography style={{ fontWeight: "bolder" }}>기간</Typography>
+                  <Typography>▪ 2021.01 ~ 2021.07</Typography>
+                </Text>
+              </Grid>
+            </Grid>
+          </div>
+        </CustomSwiperSlide>
+        <CustomSwiperSlide>
+          <div style={{ width: "80%", height: "70%", textAlign: "left" }}>
+            <Title className="title" data-swiper-parallax="-300">
+              프로젝트 소개 [3/4]
+            </Title>
+            <Subtitle className="subtitle" data-swiper-parallax="-200">
+              구조도
+            </Subtitle>
+            <Grid container spacing={4}>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  메인 구조
+                </Subtitle>
+                <div
+                  style={{
+                    display: "block",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    alt="main"
+                    width={500}
+                    height={300}
+                    src={"/image/image/main.png"}
+                    layout="fixed"
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  백엔드(Python)
+                </Subtitle>
+                <div
+                  style={{
+                    display: "block",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    alt="main"
+                    width={500}
+                    height={400}
+                    src={"/image/image/backend.png"}
+                    layout="fixed"
+                  />
+                </div>
+              </Grid>
+            </Grid>
+          </div>
+        </CustomSwiperSlide>
+        <CustomSwiperSlide>
+          <div style={{ width: "80%", height: "70%", textAlign: "left" }}>
+            <Title className="title" data-swiper-parallax="-300">
+              프로젝트 소개 [4/4]
+            </Title>
+            <Subtitle className="subtitle" data-swiper-parallax="-200">
+              구조도
+            </Subtitle>
+            <Grid container spacing={4}>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  안드로이드
+                </Subtitle>
+                <div
+                  style={{
+                    display: "block",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    alt="main"
+                    width={500}
+                    height={400}
+                    src={"/image/image/android.png"}
+                    layout="fixed"
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={6} sm={6} md={6} lg={6}>
+                <Subtitle className="subtitle" data-swiper-parallax="-200">
+                  스위치(ESP8266)
+                </Subtitle>
+                <div
+                  style={{
+                    display: "block",
+                    borderRadius: "20px",
+                    overflow: "hidden",
+                    position: "relative",
+                  }}
+                >
+                  <Image
+                    alt="main"
+                    width={500}
+                    height={400}
+                    src={"/image/image/switch.png"}
+                    layout="fixed"
+                  />
+                </div>
+              </Grid>
+            </Grid>
+          </div>
+        </CustomSwiperSlide>
+      </Swiper>
+    </div>
+  );
+}
