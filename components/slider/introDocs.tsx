@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { SwiperRef, useSwiper } from "swiper/react";
 
 import { Grid, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 // import required modules
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Parallax, Scrollbar, Pagination } from "swiper/modules";
-import SwiperCore from "swiper";
+import { Navigation, Parallax } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 interface IntroDocsSliderProps {
   activeIndex: number;
@@ -24,11 +27,6 @@ const ParallaxBg = styled("div")`
   height: 100%;
   background-size: cover;
   background-position: center;
-`;
-
-const CustomSwiper = styled(Swiper)`
-  width: 100%;
-  height: 100%;
 `;
 
 const CustomSwiperSlide = styled(SwiperSlide)`
@@ -64,8 +62,6 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
 
-  SwiperCore.use([Navigation]);
-
   useEffect(() => {
     if (pageNumber === activeIndex) {
       setStartAnimation(true);
@@ -89,9 +85,12 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
         }}
         speed={600}
         parallax={true}
-        navigation={true}
+        // navigation={true}
+        navigation={{
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        }}
         modules={[Parallax, Navigation]}
-        className="customSwiper"
       >
         <ParallaxBg
           slot="container-start"
@@ -178,33 +177,39 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                   기술 스택
                 </Subtitle>
                 <Text className="text" data-swiper-parallax="-100">
-                  <Typography style={{ fontWeight: "bolder" }}>목적</Typography>
-                  <Typography>▪ IoT & 클라우드</Typography>
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    안드로이드
+                  </Typography>
+                  <Typography>▪ Java, MQTT, SFTP</Typography>
                   <br />
                   <Typography style={{ fontWeight: "bolder" }}>
-                    팀 or 개인
+                    백엔드
                   </Typography>
-                  <Typography> ▪ 개인 프로젝트</Typography>
+                  <Typography> ▪ PHP : 유저, 예약 관련 정보</Typography>
+                  <Typography> ▪ Python : MQTT, Scheduler, pymysql </Typography>
                   <br />
-                  <Typography style={{ fontWeight: "bolder" }}>기간</Typography>
-                  <Typography>▪ 2021.01 ~ 2021.07</Typography>
+                  <Typography style={{ fontWeight: "bolder" }}>서버</Typography>
+                  <Typography>
+                    ▪ Ubuntu 18.04 LTS, MQTT(Mosquitto), Systemd, MariaDB, NGINX
+                  </Typography>
                 </Text>
               </Grid>
               <Grid item xs={6} sm={6} md={6} lg={6}>
                 <Subtitle className="subtitle" data-swiper-parallax="-200">
-                  개발 & 배포 환경
+                  개발 환경
                 </Subtitle>
                 <Text className="text" data-swiper-parallax="-100">
-                  <Typography style={{ fontWeight: "bolder" }}>목적</Typography>
-                  <Typography>▪ IoT & 클라우드</Typography>
+                  <Typography style={{ fontWeight: "bolder" }}>
+                    안드로이드
+                  </Typography>
+                  <Typography>▪ Android Studio</Typography>
                   <br />
                   <Typography style={{ fontWeight: "bolder" }}>
-                    팀 or 개인
+                    백엔드
                   </Typography>
-                  <Typography> ▪ 개인 프로젝트</Typography>
+                  <Typography> ▪ PHP : VSC</Typography>
+                  <Typography> ▪ Python : Pycharm</Typography>
                   <br />
-                  <Typography style={{ fontWeight: "bolder" }}>기간</Typography>
-                  <Typography>▪ 2021.01 ~ 2021.07</Typography>
                 </Text>
               </Grid>
             </Grid>
@@ -236,7 +241,8 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     width={500}
                     height={300}
                     src={"/image/image/main.png"}
-                    layout="fixed"
+                    objectFit="cover"
+                    objectPosition="center"
                   />
                 </div>
               </Grid>
@@ -257,7 +263,8 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     width={500}
                     height={400}
                     src={"/image/image/backend.png"}
-                    layout="fixed"
+                    objectFit="cover"
+                    objectPosition="center"
                   />
                 </div>
               </Grid>
@@ -290,7 +297,8 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     width={500}
                     height={400}
                     src={"/image/image/android.png"}
-                    layout="fixed"
+                    objectFit="cover"
+                    objectPosition="center"
                   />
                 </div>
               </Grid>
@@ -311,7 +319,8 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     width={500}
                     height={400}
                     src={"/image/image/switch.png"}
-                    layout="fixed"
+                    objectFit="cover"
+                    objectPosition="center"
                   />
                 </div>
               </Grid>
@@ -319,6 +328,14 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
           </div>
         </CustomSwiperSlide>
       </Swiper>
+      <div
+        className="swiper-button-next"
+        style={{ marginRight: "4rem", color: "#3eccc4" }}
+      ></div>
+      <div
+        className="swiper-button-prev"
+        style={{ marginLeft: "4rem", color: "#3eccc4" }}
+      ></div>
     </div>
   );
 }
