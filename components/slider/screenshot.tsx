@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { SwiperRef, useSwiper } from "swiper/react";
 import SwiperCore from "swiper";
 
 import { Stack, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/material/styles";
+
+import PortfolioContext from "../../context/context";
 
 // import required modules
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -39,6 +41,8 @@ SwiperCore.use([Navigation, Scrollbar, Mousewheel]);
 export default function Home({ activeIndex }: ScreenShotSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
+  const { prefix }: any = useContext(PortfolioContext);
+
   const swiper = useSwiper();
 
   const swiperRef = useRef<SwiperRef>(null);
@@ -127,19 +131,23 @@ export default function Home({ activeIndex }: ScreenShotSliderProps) {
             className="mySwiper"
           >
             <CustomSwiperSlide>
-              <img src="/image/image/mainCapture.jpg" />
+              <img src={`${prefix}/image/image/mainCapture.jpg`} />
             </CustomSwiperSlide>
             <CustomSwiperSlide>
-              <img src="/image/image/lightCapture.jpg" />
+              <img src={`${prefix}/image/image/lightCapture.jpg`} />
+              {/* <img src="/image/image/lightCapture.jpg" /> */}
             </CustomSwiperSlide>
             <CustomSwiperSlide>
-              <img src="/image/image/lightReserveCapture.jpg" />
+              <img src={`${prefix}/image/image/lightReserveCapture.jpg`} />
+              {/* <img src="/image/image/lightReserveCapture.jpg" /> */}
             </CustomSwiperSlide>
             <CustomSwiperSlide>
-              <img src="/image/image/cloudCapture.jpg" />
+              <img src={`${prefix}/image/image/cloudCapture.jpg`} />
+              {/* <img src="/image/image/cloudCapture.jpg" /> */}
             </CustomSwiperSlide>
             <CustomSwiperSlide>
-              <img src="/image/image/settingCapture.jpg" />
+              <img src={`${prefix}/image/image/settingCapture.jpg`} />
+              {/* <img src="/image/image/settingCapture.jpg" /> */}
             </CustomSwiperSlide>
           </Swiper>
         </div>
