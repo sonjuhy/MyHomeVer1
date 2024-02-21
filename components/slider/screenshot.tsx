@@ -42,7 +42,7 @@ export default function Home({ activeIndex }: ScreenShotSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
   // const { prefix }: any = useContext(PortfolioContext);
-  const prefix = "https://sonjuhy.github.io/Portfolio";
+  const prefix = "https://sonjuhy.github.io/MyHomeVer1";
 
   const swiper = useSwiper();
 
@@ -132,11 +132,14 @@ export default function Home({ activeIndex }: ScreenShotSliderProps) {
             className="mySwiper"
           >
             <CustomSwiperSlide>
-              <img src={`${prefix}/image/image/mainCapture.jpg`} />
+              <img
+                src={`https://sonjuhy.github.io/MyHomeVer1/image/image/mainCapture.jpg`}
+              />
             </CustomSwiperSlide>
             <CustomSwiperSlide>
-              <img src={`${prefix}/image/image/lightCapture.jpg`} />
-              {/* <img src="/image/image/lightCapture.jpg" /> */}
+              <img
+                src={`https://sonjuhy.github.io/MyHomeVer1/image/image/lightCapture.jpg`}
+              />
             </CustomSwiperSlide>
             <CustomSwiperSlide>
               <img src={`${prefix}/image/image/lightReserveCapture.jpg`} />
