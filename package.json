@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "export": "next export",
     "deploy": "next build && next export && touch out/.nojekyll && git add -f out/ && git commit -m 'deploy' && git subtree push --prefix out origin portfolio-pages"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "framer-motion": "^11.0.5",
     "next": "14.1.0",
     "react": "^18",
+    "react-code-blocks": "^0.1.6",
     "react-dom": "^18",
     "react-fullpage": "^0.1.19",
     "styled-components": "^6.1.8",

@@ -62,17 +62,7 @@ export default function Home({ activeIndex }: IotSliderProps) {
       >
         <path d={SvgPocket.wifiPath} />
       </svg>
-      <div
-        style={
-          {
-            //   width: "100%",
-            //   height: "100%",
-            //   display: "flex",
-            //   justifyContent: "center",
-            //   alignItems: "center",
-          }
-        }
-      >
+      <div>
         <Stack spacing={2}>
           <div
             style={{

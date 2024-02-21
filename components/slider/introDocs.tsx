@@ -236,14 +236,15 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     position: "relative",
                   }}
                 >
-                  <Image
+                  {/* <Image
                     alt="main"
                     width={500}
                     height={300}
                     src={"/image/image/main.png"}
                     objectFit="cover"
                     objectPosition="center"
-                  />
+                  /> */}
+                  <img src={"/image/image/main.png"} />
                 </div>
               </Grid>
               <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -258,14 +259,15 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     position: "relative",
                   }}
                 >
-                  <Image
+                  {/* <Image
                     alt="main"
                     width={500}
                     height={400}
                     src={"/image/image/backend.png"}
                     objectFit="cover"
                     objectPosition="center"
-                  />
+                  /> */}
+                  <img src={"/image/image/backend.png"} />
                 </div>
               </Grid>
             </Grid>
@@ -292,14 +294,15 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     position: "relative",
                   }}
                 >
-                  <Image
+                  {/* <Image
                     alt="main"
                     width={500}
                     height={400}
                     src={"/image/image/android.png"}
                     objectFit="cover"
                     objectPosition="center"
-                  />
+                  /> */}
+                  <img src={"/image/image/android.png"} />
                 </div>
               </Grid>
               <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -314,14 +317,15 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     position: "relative",
                   }}
                 >
-                  <Image
+                  {/* <Image
                     alt="main"
                     width={500}
                     height={400}
                     src={"/image/image/switch.png"}
                     objectFit="cover"
                     objectPosition="center"
-                  />
+                  /> */}
+                  <img src={"/image/image/switch.png"} />
                 </div>
               </Grid>
             </Grid>
