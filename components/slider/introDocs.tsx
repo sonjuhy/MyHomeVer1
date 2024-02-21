@@ -1,5 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+
+import PortfolioContext from "../../context/context";
 
 import { Grid, Typography, useMediaQuery } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -61,6 +63,7 @@ const Text = styled("div")`
 export default function Home({ activeIndex }: IntroDocsSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
+  const { prefix }: any = useContext(PortfolioContext);
 
   useEffect(() => {
     if (pageNumber === activeIndex) {
@@ -97,8 +100,8 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
           className="parallax-bg"
           style={{
             backgroundImage: prefersDarkMode
-              ? "url(/image/image/IntroDocsBackgroundDark.png)"
-              : "url(/image/image/IntroDocsBackground.png)",
+              ? "url(" + prefix + "image/image/introDocsBackgroundDark.png)"
+              : "url(" + prefix + "image/image/introDocsBackground.png)",
           }}
           data-swiper-parallax="-23%"
         ></ParallaxBg>
@@ -244,7 +247,7 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     objectFit="cover"
                     objectPosition="center"
                   /> */}
-                  <img src={"/image/image/main.png"} />
+                  <img src={`${prefix}/image/image/main.png`} />
                 </div>
               </Grid>
               <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -267,7 +270,7 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     objectFit="cover"
                     objectPosition="center"
                   /> */}
-                  <img src={"/image/image/backend.png"} />
+                  <img src={`${prefix}/image/image/backend.png`} />
                 </div>
               </Grid>
             </Grid>
@@ -302,7 +305,7 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     objectFit="cover"
                     objectPosition="center"
                   /> */}
-                  <img src={"/image/image/android.png"} />
+                  <img src={`${prefix}/image/image/android.png`} />
                 </div>
               </Grid>
               <Grid item xs={6} sm={6} md={6} lg={6}>
@@ -325,7 +328,7 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
                     objectFit="cover"
                     objectPosition="center"
                   /> */}
-                  <img src={"/image/image/switch.png"} />
+                  <img src={`${prefix}/image/image/switch.png`} />
                 </div>
               </Grid>
             </Grid>

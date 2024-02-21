@@ -41,8 +41,7 @@ SwiperCore.use([Navigation, Scrollbar, Mousewheel]);
 export default function Home({ activeIndex }: ScreenShotSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
-  // const { prefix }: any = useContext(PortfolioContext);
-  const prefix = "https://sonjuhy.github.io/MyHomeVer1";
+  const { prefix }: any = useContext(PortfolioContext);
 
   const swiper = useSwiper();
 
@@ -132,26 +131,19 @@ export default function Home({ activeIndex }: ScreenShotSliderProps) {
             className="mySwiper"
           >
             <CustomSwiperSlide>
-              <img
-                src={`https://sonjuhy.github.io/MyHomeVer1/image/image/mainCapture.jpg`}
-              />
+              <img src={`${prefix}/image/image/mainCapture.jpg`} />
             </CustomSwiperSlide>
             <CustomSwiperSlide>
-              <img
-                src={`https://sonjuhy.github.io/MyHomeVer1/image/image/lightCapture.jpg`}
-              />
+              <img src={`${prefix}/image/image/lightCapture.jpg`} />
             </CustomSwiperSlide>
             <CustomSwiperSlide>
               <img src={`${prefix}/image/image/lightReserveCapture.jpg`} />
-              {/* <img src="/image/image/lightReserveCapture.jpg" /> */}
             </CustomSwiperSlide>
             <CustomSwiperSlide>
               <img src={`${prefix}/image/image/cloudCapture.jpg`} />
-              {/* <img src="/image/image/cloudCapture.jpg" /> */}
             </CustomSwiperSlide>
             <CustomSwiperSlide>
               <img src={`${prefix}/image/image/settingCapture.jpg`} />
-              {/* <img src="/image/image/settingCapture.jpg" /> */}
             </CustomSwiperSlide>
           </Swiper>
         </div>
