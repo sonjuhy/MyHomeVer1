@@ -41,7 +41,8 @@ SwiperCore.use([Navigation, Scrollbar, Mousewheel]);
 export default function Home({ activeIndex }: ScreenShotSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
-  const { prefix }: any = useContext(PortfolioContext);
+  // const { prefix }: any = useContext(PortfolioContext);
+  const prefix = "https://sonjuhy.github.io/Portfolio";
 
   const swiper = useSwiper();
 
