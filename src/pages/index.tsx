@@ -49,6 +49,8 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [sendIndex, setSendIndex] = useState(0);
 
+  const [smallMode, setSmallMode] = useState(false);
+
   const handleSlideChange = (event: any) => {
     if (swiperRef.current) {
       setActiveIndex(event.realIndex);
@@ -59,17 +61,34 @@ export default function Home() {
     setSendIndex(activeIndex);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
+      const containerWidth =
+        document.getElementById("index_container")?.offsetWidth;
+
+      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
+      if (containerWidth && containerWidth <= 900) {
+        setSmallMode(true);
+      } else {
+        setSmallMode(false);
+      }
+    };
+
+    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
-      <Head>
-        <title>Sonjuhy Portfolio</title>
-        <link rel="icon" href={`${prefix}/favicon.ico`} />
-        <meta property="og:image" content={`${prefix}/profile.png`} />
-        <meta property="og:title" content={"Sonjuhy Portfolio"} />
-        <meta property="og:description" content="Development History Store" />
-        <meta property="og:type" content="website" />
-      </Head>
       <div
+        id="index_container"
         style={{
           height: "95vh",
           width: "100%",
@@ -84,9 +103,13 @@ export default function Home() {
           slidesPerView={1}
           spaceBetween={30}
           mousewheel={true}
-          pagination={{
-            clickable: true,
-          }}
+          pagination={
+            smallMode
+              ? false
+              : {
+                  clickable: true,
+                }
+          }
           effect="slide"
           speed={1000}
           modules={[Mousewheel, Pagination]}

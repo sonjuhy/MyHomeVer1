@@ -14,8 +14,11 @@ let pageNumber: number = 4;
 export default function Home({ activeIndex }: AddonsSliderProps) {
   const [startAnimation, setStartAnimation] = useState(false);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [fontSize, setFontSize] = useState(32);
+  const [smallMode, setSmallMode] = useState(false);
 
   useEffect(() => {
+    console.log("activeIndex: " + activeIndex);
     if (pageNumber === activeIndex) {
       setStartAnimation(true);
     } else {
@@ -23,15 +26,42 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
     }
   }, [activeIndex]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
+      const containerWidth =
+        document.getElementById("intro_container")?.offsetWidth;
+
+      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
+      if (containerWidth && containerWidth <= 900) {
+        setFontSize(18);
+        setSmallMode(true);
+      } else {
+        setFontSize(32);
+        setSmallMode(false);
+      }
+    };
+
+    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "100%",
         position: "relative",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        // alignItems: smallMode ? "normal" : "center",
+
         backgroundColor: "#f4f5ff",
       }}
     >
@@ -48,14 +78,21 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
             ? "transform 1s ease-in-out"
             : "transform 0s",
           transform: startAnimation
-            ? "translate(38vw, -30vh)"
+            ? smallMode
+              ? "translate(38vw, -10vh)"
+              : "translate(38vw, -30vh)"
             : "translate(70vw, -70vh)",
-          opacity: prefersDarkMode ? 1 : 0.3,
+          opacity: startAnimation ? (prefersDarkMode ? 0.1 : 0.3) : 0,
         }}
       >
         <path d={SvgPocket.etcPath} />
       </svg>
-      <div>
+      <div
+        style={{
+          position: "absolute",
+          top: smallMode ? "0%" : "10%",
+        }}
+      >
         <Stack spacing={2}>
           <div
             style={{
@@ -63,6 +100,7 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "left",
+              marginTop: smallMode ? "0.7rem" : "0rem",
             }}
           >
             <Typography
@@ -93,16 +131,16 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "2rem",
-              marginLeft: "20vw",
-              marginRight: "20vw",
+              marginTop: smallMode ? "1rem" : "2rem",
+              marginLeft: smallMode ? "5vw" : "20vw",
+              marginRight: smallMode ? "5vw" : "20vw",
             }}
           >
-            <Grid container spacing={6}>
+            <Grid container spacing={smallMode ? 4 : 6}>
               <Grid
                 item
-                xs={6}
-                sm={6}
+                xs={12}
+                sm={12}
                 md={6}
                 lg={6}
                 style={{
@@ -112,10 +150,11 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
+                    fontSize: fontSize * 1.2,
+                    textSizeAdjust: "auto",
                     color: "#808080",
-                    marginBottom: "1rem",
+                    marginBottom: smallMode ? "0rem" : "1rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -129,8 +168,8 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
               </Grid>
               <Grid
                 item
-                xs={6}
-                sm={6}
+                xs={12}
+                sm={12}
                 md={6}
                 lg={6}
                 style={{
@@ -140,10 +179,10 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
+                    fontSize: fontSize * 1.2,
                     color: "#808080",
-                    marginBottom: "1rem",
+                    marginBottom: smallMode ? "0rem" : "1rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -156,8 +195,8 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
               </Grid>
               <Grid
                 item
-                xs={6}
-                sm={6}
+                xs={12}
+                sm={12}
                 md={6}
                 lg={6}
                 style={{
@@ -167,10 +206,10 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
+                    fontSize: fontSize * 1.2,
                     color: "#808080",
-                    marginBottom: "1rem",
+                    marginBottom: smallMode ? "0rem" : "1rem",
                     fontWeight: "bold",
                   }}
                 >
@@ -183,8 +222,8 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
               </Grid>
               <Grid
                 item
-                xs={6}
-                sm={6}
+                xs={12}
+                sm={12}
                 md={6}
                 lg={6}
                 style={{
@@ -194,10 +233,10 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
+                    fontSize: fontSize * 1.2,
                     color: "#808080",
-                    marginBottom: "1rem",
+                    marginBottom: smallMode ? "0rem" : "1rem",
                     fontWeight: "bold",
                   }}
                 >

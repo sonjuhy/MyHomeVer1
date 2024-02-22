@@ -22,6 +22,8 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Home({ activeIndex }: CloudSliderProps) {
   const [startAnimation, setStartAnimation] = useState(false);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [smallMode, setSmallMode] = useState(false);
+  const [fontSize, setFontSize] = useState(32);
 
   useEffect(() => {
     if (pageNumber === activeIndex) {
@@ -31,6 +33,32 @@ export default function Home({ activeIndex }: CloudSliderProps) {
     }
   }, [activeIndex]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
+      const containerWidth =
+        document.getElementById("intro_container")?.offsetWidth;
+
+      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
+      if (containerWidth && containerWidth <= 900) {
+        setFontSize(16);
+        setSmallMode(true);
+      } else {
+        setFontSize(32);
+        setSmallMode(false);
+      }
+    };
+
+    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
       style={{
@@ -39,7 +67,7 @@ export default function Home({ activeIndex }: CloudSliderProps) {
         position: "relative",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: smallMode ? "normal" : "center",
         backgroundColor: "#f4f5ff",
       }}
     >
@@ -56,9 +84,11 @@ export default function Home({ activeIndex }: CloudSliderProps) {
             ? "transform 1s ease-in-out"
             : "transform 0s",
           transform: startAnimation
-            ? "translate(-25vw, -35vh)"
+            ? smallMode
+              ? "translate(-35vw, -10vh)"
+              : "translate(-25vw, -35vh)"
             : "translate(-70vw, -70vh)",
-          opacity: prefersDarkMode ? 1 : 0.3,
+          opacity: startAnimation ? (prefersDarkMode ? 0.1 : 0.3) : 0,
         }}
       >
         <path d={SvgPocket.cloudPath} />
@@ -71,6 +101,7 @@ export default function Home({ activeIndex }: CloudSliderProps) {
               alignItems: "center",
               justifyContent: "center",
               textAlign: "left",
+              marginTop: smallMode ? "1rem" : "0rem",
             }}
           >
             <Typography
@@ -101,16 +132,16 @@ export default function Home({ activeIndex }: CloudSliderProps) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              marginTop: "2rem",
-              marginLeft: "20vw",
-              marginRight: "20vw",
+              marginTop: smallMode ? "1rem" : "2rem",
+              marginLeft: smallMode ? "5vw" : "20vw",
+              marginRight: smallMode ? "5vw" : "20vw",
             }}
           >
             <Grid container spacing={6}>
               <Grid
                 item
-                xs={6}
-                sm={6}
+                xs={12}
+                sm={12}
                 md={6}
                 lg={6}
                 style={{
@@ -120,16 +151,19 @@ export default function Home({ activeIndex }: CloudSliderProps) {
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
                     color: "#808080",
                     marginBottom: "1rem",
                     fontWeight: "bold",
+                    fontSize: fontSize * 1.5,
                   }}
                 >
                   파일 관리
                 </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
+                <Typography
+                  variant={smallMode ? "body2" : "body1"}
+                  style={{ color: "#808080" }}
+                >
                   어디서든 안드로이드 어플을 통해 서버에 있는 파일을 관리 할 수
                   있습니다. 파일 정보 확인, 다운로드, 업로드, 수정 등을 할 수
                   있습니다.
@@ -137,8 +171,8 @@ export default function Home({ activeIndex }: CloudSliderProps) {
               </Grid>
               <Grid
                 item
-                xs={6}
-                sm={6}
+                xs={12}
+                sm={12}
                 md={6}
                 lg={6}
                 style={{
@@ -148,16 +182,19 @@ export default function Home({ activeIndex }: CloudSliderProps) {
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
                     color: "#808080",
                     marginBottom: "1rem",
                     fontWeight: "bold",
+                    fontSize: fontSize * 1.5,
                   }}
                 >
                   파일 공유
                 </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
+                <Typography
+                  variant={smallMode ? "body2" : "body1"}
+                  style={{ color: "#808080" }}
+                >
                   공용 폴더를 이용하여 사용자들끼리 파일을 공유할 수 있습니다.
                   공용 폴더에 있는 파일들은 다운로드, 수정, 삭제 등 관리를 할 수
                   있습니다.
@@ -168,28 +205,37 @@ export default function Home({ activeIndex }: CloudSliderProps) {
                 style={{
                   transition: "opacity 0.7s ease-in-out",
                   opacity: startAnimation ? 1 : 0,
-                  textAlign: "center",
+                  textAlign: "left",
                 }}
               >
                 <Typography
-                  variant="h4"
                   style={{
                     color: "#808080",
                     marginBottom: "1rem",
                     fontWeight: "bold",
+                    fontSize: fontSize * 1.5,
                   }}
                 >
                   개인화
                 </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
+                <Typography
+                  variant={smallMode ? "body2" : "body1"}
+                  style={{ color: "#808080" }}
+                >
                   개인 폴더를 통하여 공유되지않는 나만의 파일들을 관리 할 수
                   있습니다.
                 </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
+                <Typography
+                  variant={smallMode ? "body2" : "body1"}
+                  style={{ color: "#808080" }}
+                >
                   개인 폴더에 있는 파일들은 오직 해당 폴더를 소유한 사용자만
                   관리 할 수 있습니다.
                 </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
+                <Typography
+                  variant={smallMode ? "body2" : "body1"}
+                  style={{ color: "#808080" }}
+                >
                   폴더의 소유권을 가지지 않은 사용자는 해당 폴더에 존재하는 파일
                   및 하위폴더 등을 탐색 및 관리를 할 수 없습니다.
                 </Typography>
