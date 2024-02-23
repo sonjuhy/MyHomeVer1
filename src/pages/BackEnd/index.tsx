@@ -1,8 +1,15 @@
 import { Button, Stack, Typography } from "@mui/material";
+// import SyntaxHighlighter from "react-syntax-highlighter";
+
 import { CodeBlock, dracula } from "react-code-blocks";
 
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
+import { useContext, useEffect } from "react";
+import PortfolioContext from "../../../context/context";
+
+import { changeSmallMode } from "../../../context/redux/feature/pageSize/pageSlice";
+import { useAppDispatch, useAppSelector } from "../../../context/redux/hooks";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,23 +27,60 @@ export default function Home() {
    * 해당 코드
    * 작성 이유 (문제가 있을 경우 어떤 경우로 해결했는지)
    * */
-  const code = `class HelloWorld {
-    static public void main( String args[] ) {
-      System.out.println( "Hello World!" );
-    }
-  }`;
+  const dispatch = useAppDispatch();
+  const { prefix }: any = useContext(PortfolioContext);
+  const smallMode = useAppSelector((state) => state.page.smallMode);
+  const fontSize = smallMode ? 16 : 32;
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
+      const containerWidth = document.getElementById(
+        "background_container"
+      )?.offsetWidth;
+
+      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
+      if (containerWidth && containerWidth <= 900) {
+        dispatch(changeSmallMode(true));
+      } else {
+        dispatch(changeSmallMode(false));
+      }
+    };
+
+    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
+      id="background_container"
       style={{
         height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        width: "100%",
         backgroundColor: "#f4f5ff",
       }}
     >
-      <Stack style={{ margin: "5rem" }}>
-        <Typography variant="h2" style={{ marginBottom: "3rem" }}>
+      <Stack
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          style={{
+            fontSize: fontSize * 2,
+            textAlign: smallMode ? "center" : "left",
+            marginTop: "1rem",
+            marginBottom: smallMode ? "1rem" : "3rem",
+          }}
+        >
           🌐 백엔드 상세 설명
         </Typography>
         <Stack
@@ -48,7 +92,11 @@ export default function Home() {
             marginBottom: "1rem",
           }}
         >
-          <Typography variant="h4">백엔드 구조도(Python)</Typography>
+          <Typography
+            style={{ fontSize: smallMode ? fontSize * 1.5 : fontSize * 1.2 }}
+          >
+            백엔드 구조도(Python)
+          </Typography>
           <div
             style={{
               display: "flex",
@@ -57,44 +105,71 @@ export default function Home() {
             }}
           >
             <img
-              src="/image/image/backend.png"
+              src={`${prefix}/image/image/backend.png`}
               style={{ objectFit: "contain", borderRadius: "2rem" }}
             />
           </div>
         </Stack>
 
-        <Item style={{ marginBottom: "3rem" }}>
-          <Typography variant="h4">IoT 중계 기능</Typography>
-          <Typography variant="h6">▪ Android ➡ Server</Typography>
-          <Typography variant="body1">▪ 작동 순서</Typography>
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}
-          >
+        <Item
+          style={{
+            width: "90%",
+            marginBottom: "3rem",
+          }}
+        >
+          <Stack spacing={2}>
+            <Typography
+              style={{ fontSize: smallMode ? fontSize * 1.3 : fontSize }}
+            >
+              IoT 중계 기능
+            </Typography>
+            <Typography
+              style={{ fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8 }}
+            >
+              ▪ Android ➡ Server
+            </Typography>
+            <Typography
+              style={{ fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5 }}
+            >
+              ▪ 작동 순서
+            </Typography>
             <div
               style={{
                 display: "flex",
-                width: "70%",
-                alignItems: "center",
+                width: "100%",
                 justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "1rem",
               }}
             >
-              <img
-                src="/image/image/MQTTFromAndroid.png"
-                style={{ objectFit: "contain", borderRadius: "2rem" }}
-              />
+              <div
+                style={{
+                  display: "flex",
+                  width: "70%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  src={`${prefix}/image/image/MQTTFromAndroid.png`}
+                  style={{ objectFit: "contain", borderRadius: "2rem" }}
+                />
+              </div>
             </div>
-          </div>
 
-          <Typography variant="body1">▪ 코드</Typography>
-          <div style={{ margin: "1rem", textAlign: "left" }}>
-            <CodeBlock
-              text={`    def on_message_fromAndroid(self, client, user_data, msg):
+            <Typography variant="body1">▪ 코드</Typography>
+            <div
+              style={{
+                margin: "1rem",
+                // width: "50%",
+                textAlign: "left",
+              }}
+            >
+              <CodeBlock
+                language={"python"}
+                showLineNumbers={true}
+                theme={dracula}
+                text={`def on_message_fromAndroid(self, client, user_data, msg):
             self.payload = msg.payload.decode("utf-8")
             print("from Android message")
             print(self.payload)
@@ -108,41 +183,38 @@ export default function Home() {
                     print("from android else")
                     self.dict = json.JSON_Parser_android(self.payload)
                     self.on_publish('MyHome/Light/Pub/'+self.dict['room'], self.payload)`}
-              language={"python"}
-              showLineNumbers={true}
-              theme={dracula}
-            />
-          </div>
-          <Typography variant="h6">▪ Switch ➡ Server</Typography>
-          <Typography variant="body1">▪ 작동 순서</Typography>
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}
-          >
+              />
+            </div>
+            <Typography variant="h6">▪ Switch ➡ Server</Typography>
+            <Typography variant="body1">▪ 작동 순서</Typography>
             <div
               style={{
                 display: "flex",
-                width: "70%",
+                width: "100%",
                 justifyContent: "center",
                 alignItems: "center",
+                marginBottom: "1rem",
               }}
             >
-              <img
-                src="/image/image/MQTTFromSwitch.png"
-                style={{ objectFit: "contain", borderRadius: "2rem" }}
-              />
+              <div
+                style={{
+                  display: "flex",
+                  width: "70%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={`${prefix}/image/image/MQTTFromSwitch.png`}
+                  style={{ objectFit: "contain", borderRadius: "2rem" }}
+                />
+              </div>
             </div>
-          </div>
 
-          <Typography variant="body1">▪ 코드</Typography>
-          <div style={{ margin: "1rem", textAlign: "left" }}>
-            <CodeBlock
-              text={`    def on_message_fromSwitch(self, client, user_data, msg):
+            <Typography variant="body1">▪ 코드</Typography>
+            <div style={{ margin: "1rem", textAlign: "left" }}>
+              <CodeBlock
+                text={`    def on_message_fromSwitch(self, client, user_data, msg):
             self.payload = msg.payload.decode("utf-8")
             if self.payload is not None and self.payload[0] == "{" and self.payload[-1] == "}":
                 self.dict = json.JSON_Parser(self.payload)
@@ -164,11 +236,12 @@ export default function Home() {
             else:
                 print("can't work in on_message")
                 print(self.payload)`}
-              language={"python"}
-              showLineNumbers={true}
-              theme={dracula}
-            />
-          </div>
+                language={"python"}
+                showLineNumbers={true}
+                theme={dracula}
+              />
+            </div>
+          </Stack>
         </Item>
 
         {/* <Item style={{ marginBottom: "3rem" }}>

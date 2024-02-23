@@ -18,6 +18,12 @@ import IntroDocsSlider from "../../components/slider/introDocs";
 import ScreenShotSlider from "../../components/slider/screenshot";
 import Head from "next/head";
 
+import {
+  changeWidth,
+  changeSmallMode,
+} from "../../context/redux/feature/pageSize/pageSlice";
+import { useAppDispatch, useAppSelector } from "../../context/redux/hooks";
+
 const DisableVerticalScroll: React.FC = () => {
   useEffect(() => {
     // 세로 스크롤을 비활성화
@@ -49,7 +55,9 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [sendIndex, setSendIndex] = useState(0);
 
-  const [smallMode, setSmallMode] = useState(false);
+  const smallMode = useAppSelector((state) => state.page.smallMode);
+
+  const dispatch = useAppDispatch();
 
   const handleSlideChange = (event: any) => {
     if (swiperRef.current) {
@@ -69,9 +77,9 @@ export default function Home() {
 
       // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
       if (containerWidth && containerWidth <= 900) {
-        setSmallMode(true);
+        dispatch(changeSmallMode(true));
       } else {
-        setSmallMode(false);
+        dispatch(changeSmallMode(false));
       }
     };
 
@@ -90,7 +98,7 @@ export default function Home() {
       <div
         id="index_container"
         style={{
-          height: "95vh",
+          height: "100svh",
           width: "100%",
           position: "relative",
           overflowY: "hidden",

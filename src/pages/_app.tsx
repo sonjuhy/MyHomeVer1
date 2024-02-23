@@ -11,22 +11,25 @@ import theme from "@/theme";
 import Header from "../../components/head";
 import { PortfolioProvider } from "../../context/context";
 import { prefix } from "../../config/config";
+import { Providers } from "../../context/redux/StoreProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
   const contextValue = { prefix: prefix };
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   return (
-    <div style={{ height: "100%" }}>
-      <PortfolioProvider value={contextValue}>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme(prefersDarkMode)}>
-            <CssBaseline />
-            <Header></Header>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </AppRouterCacheProvider>
-      </PortfolioProvider>
-    </div>
+    <Providers>
+      <div id="main_index_container" style={{ height: "100%" }}>
+        <PortfolioProvider value={contextValue}>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme(prefersDarkMode)}>
+              <CssBaseline />
+              <Header></Header>
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </PortfolioProvider>
+      </div>
+    </Providers>
   );
 }
