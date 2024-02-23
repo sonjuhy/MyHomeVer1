@@ -14,6 +14,7 @@ import { Navigation, Pagination, Parallax } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { useAppSelector } from "../../context/redux/hooks";
 
 interface IntroDocsSliderProps {
   activeIndex: number;
@@ -40,11 +41,6 @@ const CustomSwiperSlide = styled(SwiperSlide)`
   display: flex;
 `;
 
-const BackgroundContainer = styled("div")`
-  width: 100%;
-  height: calc(var(--vh, 1vh) * 100);
-`;
-
 const Title = styled("div")`
   font-size: 41px;
   font-weight: 300;
@@ -68,9 +64,8 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
   const [startAnimation, setStartAnimation] = useState(false);
   const { prefix }: any = useContext(PortfolioContext);
 
-  const [smallMode, setSmallMode] = useState(false);
-  const [fontSize, setFontSize] = useState(32);
-  const [realHeight, setRealHeight] = useState(-1);
+  const smallMode = useAppSelector((state) => state.page.smallMode);
+  const fontSize = smallMode ? 18 : 32;
 
   useEffect(() => {
     if (pageNumber === activeIndex) {
@@ -80,49 +75,12 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
     }
   }, [activeIndex]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
-      const containerWidth = document.getElementById(
-        "introDocs_container"
-      )?.offsetWidth;
-
-      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
-      if (containerWidth && containerWidth <= 900) {
-        setFontSize(16);
-        setSmallMode(true);
-      } else {
-        setFontSize(32);
-        setSmallMode(false);
-      }
-
-      let vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-      setRealHeight(vh);
-      console.log("vh: " + vh);
-    };
-
-    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   return (
-    <BackgroundContainer
-      id="introDocs_container"
-      style={
-        {
-          // width: "100vw",
-          // height: realHeight === -1 ? "100vh" : `${realHeight}px`,
-          // justifyContent: "center",
-          // alignItems: "center",
-          // display: "flex",
-        }
-      }
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+      }}
     >
       <Swiper
         style={{
@@ -161,7 +119,6 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
           <div
             style={{
               width: smallMode ? "90%" : "70%",
-              height: "50%",
               textAlign: "left",
             }}
           >
@@ -234,7 +191,6 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
           <div
             style={{
               width: smallMode ? "90%" : "70%",
-              height: "50%",
               textAlign: "left",
             }}
           >
@@ -298,7 +254,6 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
           <div
             style={{
               width: smallMode ? "90%" : "80%",
-              height: "70%",
               textAlign: "left",
             }}
           >
@@ -454,6 +409,6 @@ export default function Home({ activeIndex }: IntroDocsSliderProps) {
           ></div>
         </div>
       )}
-    </BackgroundContainer>
+    </div>
   );
 }

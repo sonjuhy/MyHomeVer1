@@ -9,6 +9,7 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 import { motion } from "framer-motion";
+import { useAppSelector } from "../../context/redux/hooks";
 
 interface IntroSliderProps {
   activeIndex: number;
@@ -29,8 +30,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Home({ activeIndex }: IntroSliderProps) {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [startAnimation, setStartAnimation] = useState(false);
-  const [smallMode, setSmallMode] = useState(false);
-  const [fontSize, setFontSize] = useState(32);
+
+  const smallMode = useAppSelector((state) => state.page.smallMode);
+  const fontSize = smallMode ? 18 : 32;
 
   const swiper = useSwiper();
 
@@ -46,38 +48,12 @@ export default function Home({ activeIndex }: IntroSliderProps) {
     }
   }, [activeIndex]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
-      const containerWidth =
-        document.getElementById("intro_container")?.offsetWidth;
-
-      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
-      if (containerWidth && containerWidth <= 900) {
-        setFontSize(16);
-        setSmallMode(true);
-      } else {
-        setFontSize(32);
-        setSmallMode(false);
-      }
-    };
-
-    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div
       id="intro_container"
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: smallMode ? "normal" : "center",
@@ -118,7 +94,7 @@ export default function Home({ activeIndex }: IntroSliderProps) {
             marginTop: "3rem",
           }}
         >
-          <Grid container spacing={2}>
+          <Grid container spacing={smallMode ? 2 : 6}>
             <Grid
               item
               xs={6}

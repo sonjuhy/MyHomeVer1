@@ -4,6 +4,7 @@ import SvgPocket from "../../public/image/svg/SvgPath";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { Grid, Stack, Typography, useMediaQuery } from "@mui/material";
+import { useAppSelector } from "../../context/redux/hooks";
 
 interface AddonsSliderProps {
   activeIndex: number;
@@ -14,43 +15,17 @@ let pageNumber: number = 4;
 export default function Home({ activeIndex }: AddonsSliderProps) {
   const [startAnimation, setStartAnimation] = useState(false);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [fontSize, setFontSize] = useState(32);
-  const [smallMode, setSmallMode] = useState(false);
+
+  const smallMode = useAppSelector((state) => state.page.smallMode);
+  const fontSize = smallMode ? 18 : 32;
 
   useEffect(() => {
-    console.log("activeIndex: " + activeIndex);
     if (pageNumber === activeIndex) {
       setStartAnimation(true);
     } else {
       setStartAnimation(false);
     }
   }, [activeIndex]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
-      const containerWidth =
-        document.getElementById("intro_container")?.offsetWidth;
-
-      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
-      if (containerWidth && containerWidth <= 900) {
-        setFontSize(18);
-        setSmallMode(true);
-      } else {
-        setFontSize(32);
-        setSmallMode(false);
-      }
-    };
-
-    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <div
@@ -60,7 +35,7 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
         position: "relative",
         display: "flex",
         justifyContent: "center",
-        // alignItems: smallMode ? "normal" : "center",
+        alignItems: smallMode ? "normal" : "center",
 
         backgroundColor: "#f4f5ff",
       }}
@@ -87,170 +62,163 @@ export default function Home({ activeIndex }: AddonsSliderProps) {
       >
         <path d={SvgPocket.etcPath} />
       </svg>
-      <div
-        style={{
-          position: "absolute",
-          top: smallMode ? "0%" : "10%",
-        }}
-      >
-        <Stack spacing={2}>
-          <div
+      <Stack spacing={2}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "left",
+            marginTop: smallMode ? "0.7rem" : "0rem",
+          }}
+        >
+          <Typography
+            variant="h2"
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              display: "inline-block",
+              color: "#3eccc4",
+              flexShrink: 0, // 텍스트가 줄어들지 않도록 설정
+            }}
+          >
+            A
+          </Typography>
+          <Typography
+            variant="h3"
+            style={{
+              marginRight: "2rem",
               textAlign: "left",
-              marginTop: smallMode ? "0.7rem" : "0rem",
+              whiteSpace: "nowrap",
             }}
           >
-            <Typography
-              variant="h2"
-              style={{
-                display: "inline-block",
-                color: "#3eccc4",
-                flexShrink: 0, // 텍스트가 줄어들지 않도록 설정
-              }}
-            >
-              A
-            </Typography>
-            <Typography
-              variant="h3"
-              style={{
-                marginRight: "2rem",
-                textAlign: "left",
-                whiteSpace: "nowrap",
-              }}
-            >
-              dd-ons
-            </Typography>
-          </div>
+            dd-ons
+          </Typography>
+        </div>
 
-          <div
-            id="centerBox"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: smallMode ? "1rem" : "2rem",
-              marginLeft: smallMode ? "5vw" : "20vw",
-              marginRight: smallMode ? "5vw" : "20vw",
-            }}
-          >
-            <Grid container spacing={smallMode ? 4 : 6}>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={6}
+        <div
+          id="centerBox"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: smallMode ? "1rem" : "2rem",
+            marginLeft: smallMode ? "5vw" : "20vw",
+            marginRight: smallMode ? "5vw" : "20vw",
+          }}
+        >
+          <Grid container spacing={smallMode ? 4 : 6}>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              style={{
+                transition: "opacity 0.7s ease-in-out",
+                opacity: startAnimation ? 1 : 0,
+                textAlign: "left",
+              }}
+            >
+              <Typography
                 style={{
-                  transition: "opacity 0.7s ease-in-out",
-                  opacity: startAnimation ? 1 : 0,
-                  textAlign: "left",
+                  fontSize: fontSize * 1.2,
+                  textSizeAdjust: "auto",
+                  color: "#808080",
+                  marginBottom: smallMode ? "0rem" : "1rem",
+                  fontWeight: "bold",
                 }}
               >
-                <Typography
-                  style={{
-                    fontSize: fontSize * 1.2,
-                    textSizeAdjust: "auto",
-                    color: "#808080",
-                    marginBottom: smallMode ? "0rem" : "1rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  날씨 정보 제공
-                </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
-                  기상청에서 제공하는 날씨 정보로 선택한 지역의 현재 날씨를 파악
-                  할 수 있습니다. 현재 기상 상황(맑음, 흐림 등), 온도, 습도,
-                  풍속, 풍향을 제공합니다.
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={6}
-                style={{
-                  transition: "opacity 0.7s ease-in-out",
-                  opacity: startAnimation ? 1 : 0,
-                  textAlign: "left",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: fontSize * 1.2,
-                    color: "#808080",
-                    marginBottom: smallMode ? "0rem" : "1rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  세부 날씨 정보 제공
-                </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
-                  선택된 지역의 습도, 강수량까지 추가로 제공합니다. 뿐만 아니라
-                  1시간 간격으로 7시간의 시간별 온도를 제공합니다.
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={6}
-                style={{
-                  transition: "opacity 0.7s ease-in-out",
-                  opacity: startAnimation ? 1 : 0,
-                  textAlign: "left",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: fontSize * 1.2,
-                    color: "#808080",
-                    marginBottom: smallMode ? "0rem" : "1rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  공지사항(메인화면)
-                </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
-                  메인화면 상단에 가장 최근에 작성된 공지사항을 표시합니다. 표시
-                  내용은 공지사항 제목과 내용이 표시됩니다.
-                </Typography>
-              </Grid>
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={6}
-                style={{
-                  transition: "opacity 0.7s ease-in-out",
-                  opacity: startAnimation ? 1 : 0,
-                  textAlign: "left",
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: fontSize * 1.2,
-                    color: "#808080",
-                    marginBottom: smallMode ? "0rem" : "1rem",
-                    fontWeight: "bold",
-                  }}
-                >
-                  공지사항 세부
-                </Typography>
-                <Typography variant="body1" style={{ color: "#808080" }}>
-                  작성된 공지사항들의 목록을 확인 할 수 있습니다. 공지사항 추가
-                  가능하며, 본인이 작성한 공지사항일 경우 수정도 가능합니다.
-                </Typography>
-              </Grid>
+                날씨 정보 제공
+              </Typography>
+              <Typography variant="body1" style={{ color: "#808080" }}>
+                기상청에서 제공하는 날씨 정보로 선택한 지역의 현재 날씨를 파악
+                할 수 있습니다. 현재 기상 상황(맑음, 흐림 등), 온도, 습도, 풍속,
+                풍향을 제공합니다.
+              </Typography>
             </Grid>
-          </div>
-        </Stack>
-      </div>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              style={{
+                transition: "opacity 0.7s ease-in-out",
+                opacity: startAnimation ? 1 : 0,
+                textAlign: "left",
+              }}
+            >
+              <Typography
+                style={{
+                  fontSize: fontSize * 1.2,
+                  color: "#808080",
+                  marginBottom: smallMode ? "0rem" : "1rem",
+                  fontWeight: "bold",
+                }}
+              >
+                세부 날씨 정보 제공
+              </Typography>
+              <Typography variant="body1" style={{ color: "#808080" }}>
+                선택된 지역의 습도, 강수량까지 추가로 제공합니다. 뿐만 아니라
+                1시간 간격으로 7시간의 시간별 온도를 제공합니다.
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              style={{
+                transition: "opacity 0.7s ease-in-out",
+                opacity: startAnimation ? 1 : 0,
+                textAlign: "left",
+              }}
+            >
+              <Typography
+                style={{
+                  fontSize: fontSize * 1.2,
+                  color: "#808080",
+                  marginBottom: smallMode ? "0rem" : "1rem",
+                  fontWeight: "bold",
+                }}
+              >
+                공지사항(메인화면)
+              </Typography>
+              <Typography variant="body1" style={{ color: "#808080" }}>
+                메인화면 상단에 가장 최근에 작성된 공지사항을 표시합니다. 표시
+                내용은 공지사항 제목과 내용이 표시됩니다.
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              style={{
+                transition: "opacity 0.7s ease-in-out",
+                opacity: startAnimation ? 1 : 0,
+                textAlign: "left",
+              }}
+            >
+              <Typography
+                style={{
+                  fontSize: fontSize * 1.2,
+                  color: "#808080",
+                  marginBottom: smallMode ? "0rem" : "1rem",
+                  fontWeight: "bold",
+                }}
+              >
+                공지사항 세부
+              </Typography>
+              <Typography variant="body1" style={{ color: "#808080" }}>
+                작성된 공지사항들의 목록을 확인 할 수 있습니다. 공지사항 추가
+                가능하며, 본인이 작성한 공지사항일 경우 수정도 가능합니다.
+              </Typography>
+            </Grid>
+          </Grid>
+        </div>
+      </Stack>
     </div>
   );
 }

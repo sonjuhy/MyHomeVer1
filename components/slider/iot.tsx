@@ -4,6 +4,7 @@ import SvgPocket from "../../public/image/svg/SvgPath";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import { Grid, Stack, Typography, useMediaQuery } from "@mui/material";
+import { useAppSelector } from "../../context/redux/hooks";
 
 interface IotSliderProps {
   activeIndex: number;
@@ -22,8 +23,9 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Home({ activeIndex }: IotSliderProps) {
   const [startAnimation, setStartAnimation] = useState(false);
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [fontSize, setFontSize] = useState(32);
-  const [smallMode, setSmallMode] = useState(false);
+
+  const smallMode = useAppSelector((state) => state.page.smallMode);
+  const fontSize = smallMode ? 18 : 32;
 
   useEffect(() => {
     if (pageNumber === activeIndex) {
@@ -33,37 +35,11 @@ export default function Home({ activeIndex }: IotSliderProps) {
     }
   }, [activeIndex]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
-      const containerWidth =
-        document.getElementById("intro_container")?.offsetWidth;
-
-      // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
-      if (containerWidth && containerWidth <= 900) {
-        setFontSize(18);
-        setSmallMode(true);
-      } else {
-        setFontSize(32);
-        setSmallMode(false);
-      }
-    };
-
-    // 초기 로드 시와 창 크기 변경 시에 이벤트 리스너 등록
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    // 컴포넌트 언마운트 시에 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div
       style={{
         width: "100vw",
-        height: "100vh",
+        height: "100%",
         position: "relative",
         display: "flex",
         justifyContent: "center",
