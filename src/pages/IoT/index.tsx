@@ -27,9 +27,8 @@ export default function Home() {
   useEffect(() => {
     const handleResize = () => {
       // 컨테이너의 너비를 감지하여 글자 크기 동적 조절
-      const containerWidth = document.getElementById(
-        "background_container"
-      )?.offsetWidth;
+      const containerWidth =
+        document.getElementById("iot_container")?.offsetWidth;
 
       // 예시: 너비가 200px 이하일 때 글자 크기를 14로, 그 외에는 16으로 설정
       if (containerWidth && containerWidth <= 900) {
