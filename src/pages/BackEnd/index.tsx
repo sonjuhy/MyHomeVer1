@@ -336,117 +336,125 @@ export default function Home() {
             style={{
               fontWeight: "bold",
               fontSize: smallMode ? fontSize * 1.3 : fontSize,
+              marginBottom: fontSize,
             }}
           >
             발생한 문제 및 해결 방법
           </Typography>
-          <Grid container>
-            <Grid item xs={12} sm={12} md={5} lg={5}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    주기적으로 스위치 연결 상태 및 현 상태(on/off) 정보 필요
-                  </Typography>
-                </CardContent>
-              </Card>
+          <Stack spacing={2}>
+            <Grid container>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      주기적으로 스위치 연결 상태 및 현 상태(on/off) 정보 필요
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      1분마다 주기적으로 각 스위치에 상태 확인 신호를
+                      보내고(pub), 이에 대한 결과값을 받아(sub) DB에 저장하는
+                      방식으로 해결.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={2}
-              lg={2}
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-              }}
-            >
-              <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+            {smallMode && <hr />}
+
+            <Grid container>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      서버가 정전으로 재부팅 되어도 다시 백엔드가 실행되어야 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      리눅스(우분투)의 systmed를 이용하여 os가 부팅되었을때,
+                      자동으로 python 스크립트가 작동하도록 설정.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={12} md={5} lg={5}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    1분마다 주기적으로 각 스위치에 상태 확인 신호를 보내고(pub),
-                    이에 대한 결과값을 받아(sub) DB에 저장하는 방식으로 해결.
-                  </Typography>
-                </CardContent>
-              </Card>
+            {smallMode && <hr />}
+            <Grid container>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      하나의 프로세스를 모두 사용하는 여러 작업들을 동시
+                      실행해야 하며, 해당 프로세스끼리 통신을 통해 데이터를 주고
+                      받아야 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      멀티 프로세싱으로 필요한 서비스들을 병렬적으로 실행함.
+                      그리고 멀티프로세싱의 큐를 이용하여 각 프로세스끼리 통신을
+                      할 수 있도록 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={12} md={5} lg={5}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    서버가 정전으로 재부팅 되어도 다시 백엔드가 실행되어야 함.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={2}
-              lg={2}
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-              }}
-            >
-              <Typography>{smallMode ? "⬇" : "➡"}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={5} lg={5}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    리눅스(우분투)의 systmed를 이용하여 os가 부팅되었을때,
-                    자동으로 python 스크립트가 작동하도록 설정.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item xs={12} sm={12} md={5} lg={5}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    하나의 프로세스를 모두 사용하는 여러 작업들을 동시 실행해야
-                    하며, 해당 프로세스끼리 통신을 통해 데이터를 주고 받아야 함.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={2}
-              lg={2}
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                display: "flex",
-              }}
-            >
-              <Typography>{smallMode ? "⬇" : "➡"}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={12} md={5} lg={5}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    멀티 프로세싱으로 필요한 서비스들을 병렬적으로 실행함.
-                    그리고 멀티프로세싱의 큐를 이용하여 각 프로세스끼리 통신을
-                    할 수 있도록 함.
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
+          </Stack>
         </Item>
       </Stack>
     </div>

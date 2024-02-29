@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 
 import { CodeBlock, dracula } from "react-code-blocks";
 
@@ -15,6 +15,14 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
+const SubItem = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(3),
+  // textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
@@ -81,6 +89,106 @@ export default function Home() {
           }}
         >
           <Stack spacing={2}>
+            <SubItem variant="outlined" elevation={6}>
+              <Typography
+                style={{
+                  fontWeight: "bold",
+                  fontSize: smallMode ? fontSize * 1.3 : fontSize,
+                }}
+              >
+                목표
+              </Typography>
+
+              <div>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: smallMode ? fontSize * 0.8 : fontSize,
+                    fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8,
+                  }}
+                >
+                  1. 개인화
+                </Typography>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: fontSize * 1.5,
+                    fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5,
+                  }}
+                >
+                  <li>DB와 연동하여 계정 기능을 통한 개인화 서비스 제공.</li>
+                  <li>
+                    공지, 전등 예약 등 기능들을 계정의 정보를 기반하여 서비스
+                    제공.
+                  </li>
+                  <li>자동 로그인 기능 제공</li>
+                </Typography>
+                <br />
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: smallMode ? fontSize * 0.8 : fontSize,
+                    fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8,
+                  }}
+                >
+                  2. MQTT를 통한 스위치 제어
+                </Typography>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: fontSize * 1.5,
+                    fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5,
+                  }}
+                >
+                  <li>MQTT를 통해 스위치를 제어하는 기능.</li>
+                  <li>
+                    메인 화면에 제공되는 빠른 스위치 제어 및 스위치 세부 제어
+                    엑티비티에서 모두 제어 가능.
+                  </li>
+                </Typography>
+                <br />
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: smallMode ? fontSize * 0.8 : fontSize,
+                    fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8,
+                  }}
+                >
+                  3. 날씨 정보 제공
+                </Typography>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: fontSize * 1.5,
+                    fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5,
+                  }}
+                >
+                  <li>기상청 API를 통해 정보를 받아와 날씨 정보 제공.</li>
+                  <li>현재 날씨, 하루 날씨를 제공.</li>
+                </Typography>
+                <br />
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: smallMode ? fontSize * 0.8 : fontSize,
+                    fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8,
+                  }}
+                >
+                  4. Cloud 서비스 제공
+                </Typography>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: fontSize * 1.5,
+                    fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5,
+                  }}
+                >
+                  <li>SFTP를 통한 Cloud 기능 제공.</li>
+                  <li>파일 탐색, 다운로드, 업로드 기능 제공.</li>
+                  <li>공용 및 개인 폴더 분리하여 사용 가능.</li>
+                </Typography>
+              </div>
+            </SubItem>
             <Typography
               style={{ fontSize: smallMode ? fontSize * 1.3 : fontSize }}
             >
@@ -688,6 +796,149 @@ public void Mqtt_Publish(int mode, String message){
                 `}
               />
             </div>
+          </Stack>
+        </Item>
+        <Item style={{ width: "90%", marginBottom: "3rem" }}>
+          <Typography
+            style={{
+              fontWeight: "bold",
+              fontSize: smallMode ? fontSize * 1.3 : fontSize,
+              marginBottom: fontSize,
+            }}
+          >
+            발생한 문제 및 해결 방법
+          </Typography>
+          <Stack spacing={2}>
+            <Grid
+              container
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      스위치 제어를 실시간으로 해야하며, 본인이 제어하지
+                      않더라도 변경된 스위치 값을 실시간으로 확인 할 수 있어야
+                      함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      MQTT 서버와 연결하여 Pub, Sub을 통해 메세지 큐 형식으로
+                      데이터를 실시간으로 처리하도록 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+            {smallMode && <hr />}
+            <Grid
+              container
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      메인 엑티비티 와 IoT 엑티비티의 MQTT 리스너 값 공유
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      브로드캐스트를 통해 MQTT 리스너로부터 온 메세지 처리
+                      결과를 방송하고, 이 방송을 구독 중인 엑티비티에서 해당
+                      값을 UI 수정을 통해 사용자가 확인 할 수 있도록 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+            {smallMode && <hr />}
+            <Grid
+              container
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+              }}
+            >
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      실제로 클라우드 파일들의 정보 및 제어가 가능해야 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      SFTP를 통해서 실제 파일을 제어하도록 하여 해결.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
           </Stack>
         </Item>
       </Stack>

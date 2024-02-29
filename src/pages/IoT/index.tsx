@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 
 import { CodeBlock, dracula } from "react-code-blocks";
 
@@ -15,6 +15,14 @@ const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
+const SubItem = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(3),
+  // textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
@@ -108,6 +116,62 @@ export default function Home() {
           }}
         >
           <Stack spacing={2}>
+            <SubItem variant="outlined" elevation={6}>
+              <Typography
+                style={{
+                  fontWeight: "bold",
+                  fontSize: smallMode ? fontSize * 1.3 : fontSize,
+                }}
+              >
+                목표
+              </Typography>
+
+              <div>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: smallMode ? fontSize * 0.8 : fontSize,
+                    fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8,
+                  }}
+                >
+                  1. MQTT 제어
+                </Typography>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: fontSize * 1.5,
+                    fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5,
+                  }}
+                >
+                  <li>
+                    On&Off 제어 / 상태 확인 목적으로 들어오는 MQTT 메세지 처리.
+                  </li>
+                  <li>정형화 된 JSON 타입으로 데이터 전송 및 처리.</li>
+                  <li>실시간 요청 처리</li>
+                </Typography>
+                <br />
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: smallMode ? fontSize * 0.8 : fontSize,
+                    fontSize: smallMode ? fontSize * 1.1 : fontSize * 0.8,
+                  }}
+                >
+                  2. 서버와의 연결을 유지
+                </Typography>
+                <Typography
+                  style={{
+                    textAlign: "left",
+                    marginLeft: fontSize * 1.5,
+                    fontSize: smallMode ? fontSize * 0.9 : fontSize * 0.5,
+                  }}
+                >
+                  <li>서버와의 연결을 항시 유지.</li>
+                  <li>만약 연결이 끊겼을 경우 재연결 시도.</li>
+                </Typography>
+                <br />
+              </div>
+            </SubItem>
             <Typography
               style={{ fontSize: smallMode ? fontSize * 1.3 : fontSize }}
             >
@@ -367,6 +431,92 @@ ButtonFlag = false;
     } `}
               />
             </div>
+          </Stack>
+        </Item>
+        <Item style={{ width: "90%", marginBottom: "3rem" }}>
+          <Typography
+            style={{
+              fontWeight: "bold",
+              fontSize: smallMode ? fontSize * 1.3 : fontSize,
+              marginBottom: fontSize,
+            }}
+          >
+            발생한 문제 및 해결 방법
+          </Typography>
+          <Stack spacing={2}>
+            <Grid container>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      펌웨어를 스위치 설치 이후에도 업데이트가 가능해야 하기에 ,
+                      무선으로 업데이트 할 수 있어야 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      Http Server를 이용한 펌웨어 업데이트 기능을 지원. 안정성을
+                      위해 로그인 이후 가능하도록 설정.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
+            {smallMode && <hr />}
+
+            <Grid container>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      서버와 연결이 종료되어도 다시 연결을 시도하여야 함.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={2}
+                lg={2}
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  display: "flex",
+                }}
+              >
+                <Typography>{smallMode ? "⬇" : "➡"}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={12} md={5} lg={5}>
+                <Card>
+                  <CardContent>
+                    <Typography variant="body2">
+                      스위치의 loop()에 지속적으로 연결상태를 확인 후, 연결이
+                      끊어진 경우 다시 재연결 시도.
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            </Grid>
           </Stack>
         </Item>
       </Stack>
